@@ -1,6 +1,6 @@
 import React, { useCallback, useRef } from "react"
-import { readSheet } from "./components/utils"
-import { COLUMNS } from "./constants"
+import { readSheet } from "./Utils"
+import { COLUMNS } from "../constants"
 
 export default () => {
   const fileInput = useRef(null)
