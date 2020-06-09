@@ -1,14 +1,14 @@
-import React, { useCallback, useRef, useState } from "react"
-import { readSheet } from "./Utils"
+import React, { useCallback, useState } from "react"
+import { readSheet } from "./utils"
 import { COLUMNS } from "../constants"
 import { ReviewResult } from "./ReviewResult"
+import { FileInput } from "./FileInput"
 
 export default () => {
-  const fileInput = useRef<HTMLInputElement>(null)
   const [result, setResult] = useState<number | null>(null)
 
-  const submit = useCallback(async () => {
-    const file = fileInput?.current?.files?.item(0)
+  const submit = useCallback(async (files: File[]) => {
+    const file = files[0]
     if (file) {
       const sheet = await readSheet(file)
       const sku = sheet
@@ -17,7 +17,7 @@ export default () => {
       setResult(sku)
     }
 
-  }, [fileInput, setResult])
+  }, [setResult])
 
   return (
     <div>
@@ -25,13 +25,10 @@ export default () => {
 
       <ReviewResult sku={result} />
 
-      <input
-        type="file"
-        ref={fileInput}
+      <FileInput
+        accept=".xls"
+        onDrop={submit}
       />
-      <button
-        onClick={submit}
-      >start</button>
     </div>
   )
 }
