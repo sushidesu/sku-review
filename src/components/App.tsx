@@ -3,10 +3,10 @@ import { readSheet } from "./Utils"
 import { COLUMNS } from "../constants"
 
 export default () => {
-  const fileInput = useRef(null)
+  const fileInput = useRef<HTMLInputElement>(null)
 
   const submit = useCallback(async () => {
-    const file = fileInput?.current?.files[0]
+    const file = fileInput?.current?.files?.item(0)
     if (file) {
       const sheet = await readSheet(file)
       const sku = sheet
