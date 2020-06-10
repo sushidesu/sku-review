@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from "react"
+import styled from "@emotion/styled"
 import { readSheet } from "./utils"
-import { COLUMNS } from "../constants"
+import { COLUMNS, SIZE } from "../constants"
 import { ReviewResult } from "./ReviewResult"
 import { FileInput } from "./FileInput"
 import { Loading } from "./Loading"
@@ -30,26 +31,59 @@ export default () => {
   }, [setStatus])
 
   return (
-    <div>
-      <h1>sku-review</h1>
+    <Wrapper>
+      <h1 className="title">SK∪･ω･∪</h1>
 
-      {status === "done"
-        && <>
-          <ReviewResult sku={result} />
-          <button onClick={clear}>clear</button>
-        </>
-      }
+      <div className="container">
+        {status === "done"
+          && <>
+            <ReviewResult sku={result} />
+            <button onClick={clear}>clear</button>
+          </>
+        }
 
-      {status === "loading"
-        && <Loading /> 
-      }
+        {status === "loading"
+          && <Loading /> 
+        }
 
-      {status === "default"
-        && <FileInput
-          accept=".xls"
-          onDrop={submit}
-        />
-      }
-    </div>
+        {status === "default"
+          && <FileInput
+            accept=".xls"
+            onDrop={submit}
+          />
+        }
+      </div>
+    </Wrapper>
   )
 }
+
+const Wrapper = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  background-color: #fff;
+  width: ${SIZE.width}px;
+  min-height: ${SIZE.width * SIZE.ratio}px;
+  border-radius: 16px;
+  padding: 20px;
+
+  .title {
+    font-size: 1.4em;
+    margin: 1.4em 0 0 0;
+  }
+
+  .container {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.4em;
+  }
+`

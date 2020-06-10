@@ -8,3 +8,12 @@ export const COLUMNS = {
   WHOLESALE_PRICE: 5,
   PRICE: 6,
 }
+
+export const SIZE = {
+  width: 330,
+  ratio: 1.414,
+  margin: {
+    big: 24,
+    small: 8,
+  }
+}
