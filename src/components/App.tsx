@@ -5,6 +5,8 @@ import { COLUMNS, SIZE } from "../constants"
 import { ReviewResult, ReviewResultProps } from "./ReviewResult"
 import { FileInput } from "./FileInput"
 import { Loading } from "./Loading"
+import { Button } from "./Button"
+import { FcIdea, FcSynchronize } from "react-icons/fc"
 
 type Status = "default" | "loading" | "done"
 
@@ -51,8 +53,17 @@ export default () => {
             <ReviewResult
               {...result}
             />
-            <button onClick={copy}>copy</button>
-            <button onClick={clear}>clear</button>
+            <Buttons>
+              <Button
+                icon={<FcSynchronize />}
+                onClick={clear}
+              >リセット</Button>
+              <Button
+                variant="outlined"
+                icon={<FcIdea />}
+                onClick={copy}
+              >コピー</Button>
+            </Buttons>
           </>
         }
 
@@ -98,6 +109,19 @@ const Wrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    
+    width: 100%;
     margin-bottom: 1.4em;
+  }
+`
+
+const Buttons = styled.div`
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+
+  & > button {
+    min-width: 120px;
   }
 `

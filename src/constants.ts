@@ -17,3 +17,25 @@ export const SIZE = {
     small: 8,
   }
 }
+
+type ColorTypes = "gray" | "primary"
+type Color = {
+  [key in ColorTypes]: {
+    default: string
+    dark: string
+    contrast: string
+  }
+}
+
+export const COLOR: Color = {
+  gray: {
+    default: "#dedede",
+    dark: "#bdbdbd",
+    contrast: "#333",
+  },
+  primary: {
+    default: "#fab348",
+    dark: "#f0874a",
+    contrast: "#333",
+  },
+}
