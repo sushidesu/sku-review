@@ -2,32 +2,34 @@ import React, { useCallback, useState } from "react"
 import styled from "@emotion/styled"
 import { readSheet } from "./utils"
 import { COLUMNS, SIZE } from "../constants"
-import { ReviewResult } from "./ReviewResult"
+import { ReviewResult, ReviewResultProps } from "./ReviewResult"
 import { FileInput } from "./FileInput"
 import { Loading } from "./Loading"
 
 type Status = "default" | "loading" | "done"
 
 export default () => {
-  const [status, setStatus] = useState<Status>("default")
-  const [result, setResult] = useState<number | null>(null)
+  const [status, setStatus] = useState<Status>("done")
+  const [result, setResult] = useState<ReviewResultProps>({ sku: 1345, totalInventory: 5430, totalCost: 13345600 })
 
   const submit = useCallback(async (files: File[]) => {
     const file = files[0]
     if (file) {
       setStatus("loading")
       const sheet = await readSheet(file)
-      const sku = sheet
-        .filter(row => !isNaN(row[COLUMNS.STOCK]) && row[COLUMNS.STOCK] > 0)
-        .length
-      setResult(sku)
+      const itemRows = sheet.filter(row => !isNaN(row[COLUMNS.STOCK]) && row[COLUMNS.STOCK] > 0)
+
+      const sku = itemRows.length
+      const totalInventory = itemRows.reduce((prev, row) => prev + row[COLUMNS.STOCK], 0)
+      const totalCost = itemRows.reduce((prev, row) => prev + row[COLUMNS.PRICE], 0)
+      setResult({ sku, totalInventory, totalCost })
       setStatus("done")
     }
   }, [setResult, setStatus])
 
   const clear = useCallback(() => {
     setStatus("default")
-    setResult(null)
+    setResult({ sku:null, totalInventory: null, totalCost: null })
   }, [setStatus])
 
   return (
@@ -37,7 +39,9 @@ export default () => {
       <div className="container">
         {status === "done"
           && <>
-            <ReviewResult sku={result} />
+            <ReviewResult
+              {...result}
+            />
             <button onClick={clear}>clear</button>
           </>
         }
