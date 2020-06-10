@@ -11,7 +11,7 @@ import { FcIdea, FcSynchronize, FcCheckmark } from "react-icons/fc"
 type Status = "default" | "loading" | "done"
 
 export default () => {
-  const [status, setStatus] = useState<Status>("done")
+  const [status, setStatus] = useState<Status>("default")
   const [result, setResult] = useState<ReviewResultProps>({ sku: 1345, totalInventory: 5430, totalCost: 13345600 })
   const [copied, setCopied] = useState(false)
 
@@ -98,6 +98,7 @@ const Wrapper = styled.div`
   align-items: center;
   
   background-color: #fff;
+  box-shadow: 3px 6px 10px #d8e7ec;
   width: ${SIZE.width}px;
   min-height: ${SIZE.width * SIZE.ratio}px;
   border-radius: 16px;
@@ -105,7 +106,7 @@ const Wrapper = styled.div`
 
   .title {
     font-size: 1.4em;
-    margin: 1.4em 0 0 0;
+    margin: 1em 0 0 0;
   }
 
   .container {
@@ -116,7 +117,7 @@ const Wrapper = styled.div`
     align-items: center;
     
     width: 100%;
-    margin-bottom: 1.4em;
+    margin-bottom: 0.4em;
   }
 `
 
