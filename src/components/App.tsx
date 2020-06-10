@@ -27,6 +27,15 @@ export default () => {
     }
   }, [setResult, setStatus])
 
+  const copy = useCallback(async () => {
+    await navigator.clipboard.writeText(
+      `SKU:\t${result.sku?.toLocaleString()}\n`
+      + `総在庫数:\t${result.totalInventory?.toLocaleString()} 個\n`
+      + `合計金額:\t${result.totalCost?.toLocaleString()} 円`
+    )
+    console.log("copied!")
+  }, [result])
+
   const clear = useCallback(() => {
     setStatus("default")
     setResult({ sku:null, totalInventory: null, totalCost: null })
@@ -42,6 +51,7 @@ export default () => {
             <ReviewResult
               {...result}
             />
+            <button onClick={copy}>copy</button>
             <button onClick={clear}>clear</button>
           </>
         }
