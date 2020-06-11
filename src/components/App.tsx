@@ -46,7 +46,7 @@ export default () => {
 
   const copy = useCallback(async () => {
     const text = `SKU:\t${result.sku?.toLocaleString()}\n`
-      + `総在庫数:\t${result.totalInventory?.toLocaleString()} 個\n`
+      + `在庫数:\t${result.totalInventory?.toLocaleString()} 個\n`
       + `合計金額:\t${result.totalCost?.toLocaleString()} 円`
     try {
       await navigator.clipboard.writeText(text)

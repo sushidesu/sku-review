@@ -15,7 +15,7 @@ export const ReviewResult: React.FC<ReviewResultProps> = ({ sku, totalInventory,
     </Item>
     <Item>
       <Highlight>{ totalInventory?.toLocaleString() }<Unit>個</Unit></Highlight>
-      <Description>総在庫数</Description>
+      <Description>在庫数</Description>
     </Item>
     <Item>
       <Highlight>{ totalCost?.toLocaleString() }<Unit>円</Unit></Highlight>
