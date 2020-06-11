@@ -31,15 +31,15 @@ export default () => {
   }, [setResult, setStatus])
 
   const copy = useCallback(async () => {
+    const text = `SKU:\t${result.sku?.toLocaleString()}\n`
+      + `総在庫数:\t${result.totalInventory?.toLocaleString()} 個\n`
+      + `合計金額:\t${result.totalCost?.toLocaleString()} 円`
     try {
-      await navigator.clipboard.writeText(
-        `SKU:\t${result.sku?.toLocaleString()}\n`
-        + `総在庫数:\t${result.totalInventory?.toLocaleString()} 個\n`
-        + `合計金額:\t${result.totalCost?.toLocaleString()} 円`
-      )
+      await navigator.clipboard.writeText(text)
       setCopied(true)
     } catch (error) {
-      window.alert(`コピーに失敗しました。\n${error}`)
+      window.prompt("「Ctrl+C」を押してコピーできます。", text)
+      console.error(error)
     }
   }, [result, setCopied])
 
