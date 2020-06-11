@@ -11,8 +11,8 @@ import { FcIdea, FcSynchronize, FcCheckmark } from "react-icons/fc"
 type Status = "default" | "loading" | "done"
 
 export default () => {
-  const [status, setStatus] = useState<Status>("default")
-  const [result, setResult] = useState<ReviewResultProps>({ sku: null, totalInventory: null, totalCost: null })
+  const [status, setStatus] = useState<Status>("done")
+  const [result, setResult] = useState<ReviewResultProps>({ shopName: "Life Lab", sku: 300, totalInventory: 1000, totalCost: 12345 })
   const [copied, setCopied] = useState(false)
 
   const submit = useCallback(async (files: File[]) => {
@@ -23,6 +23,8 @@ export default () => {
         const sheet = await readSheet(file)
         if (sheet[0][0] !== "店舗名") throw Error("対応していないファイルです。")
 
+        const shopNameCell = sheet[0][1]
+        const shopName = typeof shopNameCell === "string" ? shopNameCell : null
         const itemRows = sheet.filter(row => {
           const stock = row[COLUMNS.STOCK]
           if (typeof stock === "number") {
@@ -35,7 +37,7 @@ export default () => {
         const sku = itemRows.length
         const totalInventory = sum(itemRows, COLUMNS.STOCK)
         const totalCost = sum(itemRows, COLUMNS.PRICE)
-        setResult({ sku, totalInventory, totalCost })
+        setResult({ sku, totalInventory, totalCost, shopName})
         setStatus("done")
       }
     } catch (error) {
@@ -59,7 +61,7 @@ export default () => {
 
   const clear = useCallback(() => {
     setStatus("default")
-    setResult({ sku:null, totalInventory: null, totalCost: null })
+    setResult({ sku:null, totalInventory: null, totalCost: null, shopName: null })
   }, [setStatus, setResult])
 
   return (

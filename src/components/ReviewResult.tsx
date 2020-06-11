@@ -2,13 +2,15 @@ import React from "react"
 import styled from "@emotion/styled"
 
 export type ReviewResultProps = {
+  shopName: string | null
   sku: number | null
   totalInventory: number | null
   totalCost: number | null
 }
 
-export const ReviewResult: React.FC<ReviewResultProps> = ({ sku, totalInventory, totalCost }) => (
+export const ReviewResult: React.FC<ReviewResultProps> = ({ shopName, sku, totalInventory, totalCost }) => (
   <Wrapper>
+    <Title>{ shopName }</Title>
     <Item>
       <Highlight>{ sku?.toLocaleString() }</Highlight>
       <Description>SKU</Description>
@@ -31,8 +33,15 @@ const Wrapper = styled.div`
   align-items: center;
 `
 
+const Title = styled.span`
+  margin-bottom: 12px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #666;
+`
+
 const Item = styled.div`
-  margin: 12px 0;
+  margin-bottom: 12px;
   text-align: center;
   font-size: 14px;
 `
