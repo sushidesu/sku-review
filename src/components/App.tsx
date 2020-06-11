@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react"
 import styled from "@emotion/styled"
-import { readSheet } from "./utils"
+import { readSheet, sum } from "./utils"
 import { COLUMNS, SIZE } from "../constants"
 import { ReviewResult, ReviewResultProps } from "./ReviewResult"
 import { FileInput } from "./FileInput"
@@ -16,17 +16,31 @@ export default () => {
   const [copied, setCopied] = useState(false)
 
   const submit = useCallback(async (files: File[]) => {
-    const file = files[0]
-    if (file) {
-      setStatus("loading")
-      const sheet = await readSheet(file)
-      const itemRows = sheet.filter(row => !isNaN(row[COLUMNS.STOCK]) && row[COLUMNS.STOCK] > 0)
+    try {
+      const file = files[0]
+      if (file) {
+        setStatus("loading")
+        const sheet = await readSheet(file)
+        if (sheet[0][0] !== "店舗名") throw Error("対応していないファイルです。")
 
-      const sku = itemRows.length
-      const totalInventory = itemRows.reduce((prev, row) => prev + row[COLUMNS.STOCK], 0)
-      const totalCost = itemRows.reduce((prev, row) => prev + row[COLUMNS.PRICE], 0)
-      setResult({ sku, totalInventory, totalCost })
-      setStatus("done")
+        const itemRows = sheet.filter(row => {
+          const stock = row[COLUMNS.STOCK]
+          if (typeof stock === "number") {
+            return !isNaN(stock) && stock > 0
+          } else {
+            return false
+          }
+        })
+
+        const sku = itemRows.length
+        const totalInventory = sum(itemRows, COLUMNS.STOCK)
+        const totalCost = sum(itemRows, COLUMNS.PRICE)
+        setResult({ sku, totalInventory, totalCost })
+        setStatus("done")
+      }
+    } catch (error) {
+      window.alert(error)
+      setStatus("default")
     }
   }, [setResult, setStatus])
 

@@ -18,5 +18,16 @@ export const readSheet = async (file: File, index: number = 0) => {
   const sheetName = workbook.SheetNames[index]
   const sheet = workbook.Sheets[sheetName]
 
-  return XLSX.utils.sheet_to_json<[]>(sheet, {header: 1})
+  return XLSX.utils.sheet_to_json<Array<string | number>>(sheet, {header: 1})
+}
+
+export const sum = (array: Array<Array<any>>, index: number) => {
+  return array.reduce((prev, row) => {
+    const value = row[index]
+    if (typeof value === "number") {
+      return prev + value
+    } else {
+      return prev
+    }
+  }, 0)
 }
