@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "@emotion/styled"
 import { useDropzone, DropzoneOptions } from "react-dropzone"
+import { FcFolder } from "react-icons/fc"
 import { SIZE, COLOR } from "../constants"
 
 type FileInputProps = DropzoneOptions
@@ -16,7 +17,8 @@ export const FileInput: React.FC<FileInputProps> = (props) => {
   return (
     <DropzoneRoot {...getRootProps({ isDragAccept, isDragReject })}>
       <input {...getInputProps()} />
-      <p>ファイルを選択またはドラッグ</p>
+      <FcFolder size={36} />
+      <DropzoneText>ファイルを選択またはドラッグ</DropzoneText>
     </DropzoneRoot>
   )
 }
@@ -28,6 +30,13 @@ type Accept = {
   isDragAccept?: boolean
   isDragReject?: boolean
 }
+
+const DropzoneText = styled.span`
+  display: inline-block;
+  margin-top: 0.2em;
+  margin-bottom: -0.4em;
+  user-select: none;
+`
 
 const DropzoneRoot = styled.div`
   display: flex;

@@ -12,7 +12,7 @@ type Status = "default" | "loading" | "done"
 
 export default () => {
   const [status, setStatus] = useState<Status>("default")
-  const [result, setResult] = useState<ReviewResultProps>({ sku: 1345, totalInventory: 5430, totalCost: 13345600 })
+  const [result, setResult] = useState<ReviewResultProps>({ sku: null, totalInventory: null, totalCost: null })
   const [copied, setCopied] = useState(false)
 
   const submit = useCallback(async (files: File[]) => {
