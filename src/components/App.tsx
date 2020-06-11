@@ -6,12 +6,13 @@ import { ReviewResult, ReviewResultProps } from "./ReviewResult"
 import { FileInput } from "./FileInput"
 import { Loading } from "./Loading"
 import { Button } from "./Button"
+import { HowToUse } from "./HowToUse"
 import { FcIdea, FcSynchronize, FcCheckmark } from "react-icons/fc"
 
 type Status = "default" | "loading" | "done"
 
 export default () => {
-  const [status, setStatus] = useState<Status>("done")
+  const [status, setStatus] = useState<Status>("default")
   const [result, setResult] = useState<ReviewResultProps>({ shopName: "Life Lab", sku: 300, totalInventory: 1000, totalCost: 12345 })
   const [copied, setCopied] = useState(false)
 
@@ -93,10 +94,13 @@ export default () => {
         }
 
         {status === "default"
-          && <FileInput
-            accept="application/vnd.ms-excel, .xls"
-            onDrop={submit}
-          />
+          && <>
+            <FileInput
+              accept="application/vnd.ms-excel, .xls"
+              onDrop={submit}
+            />
+            <HowToUse />
+          </>
         }
       </div>
     </Wrapper>

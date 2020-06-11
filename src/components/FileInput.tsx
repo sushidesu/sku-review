@@ -18,7 +18,7 @@ export const FileInput: React.FC<FileInputProps> = (props) => {
     <DropzoneRoot {...getRootProps({ isDragAccept, isDragReject })}>
       <input {...getInputProps()} />
       <FcFolder size={36} />
-      <DropzoneText>ファイルを選択またはドラッグ</DropzoneText>
+      <DropzoneText>棚卸ファイルを<br/>選択またはドラッグ</DropzoneText>
     </DropzoneRoot>
   )
 }
@@ -36,6 +36,7 @@ const DropzoneText = styled.span`
   margin-top: 0.2em;
   margin-bottom: -0.4em;
   user-select: none;
+  text-align: center;
 `
 
 const DropzoneRoot = styled.div`
