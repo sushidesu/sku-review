@@ -78,7 +78,7 @@ export default () => {
 
         {status === "default"
           && <FileInput
-            accept=".xls"
+            accept="application/vnd.ms-excel, .xls"
             onDrop={submit}
           />
         }
