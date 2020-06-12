@@ -63,7 +63,8 @@ export default () => {
   const clear = useCallback(() => {
     setStatus("default")
     setResult({ sku:null, totalInventory: null, totalCost: null, shopName: null })
-  }, [setStatus, setResult])
+    setCopied(false)
+  }, [setStatus, setResult, setCopied])
 
   return (
     <Wrapper>
