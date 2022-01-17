@@ -19,7 +19,7 @@
     "react-scripts": "3.4.1",
     "react-spinners": "^0.8.3",
     "typescript": "^3.9.5",
-    "xlsx": "^0.16.2"
+    "xlsx": "^0.17.0"
   },
   "scripts": {
     "start": "react-scripts start",
